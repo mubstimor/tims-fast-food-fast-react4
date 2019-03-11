@@ -1,10 +1,14 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import './style/main.less';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import React from 'react';
+import store from './store/index';
+import App from './App';
+import './assets/scss/style.scss';
+import './assets/css/style.css';
 
-class Welcome extends Component {
-    render () {
-        return <h1>Hello from boiler template</h1>;
-    }
-}
-ReactDOM.render(<Welcome />, document.getElementById('app'));
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
