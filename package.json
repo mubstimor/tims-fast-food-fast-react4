@@ -26,6 +26,7 @@
   "homepage": "https://github.com/mubstimor/tims-fast-food-fast-react4#readme",
   "dependencies": {
     "babel-jest": "^24.3.1",
+    "dotenv-webpack": "^1.7.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.10.0",
     "express": "^4.16.4",
