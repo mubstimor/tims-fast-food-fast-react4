@@ -1,18 +1,25 @@
 {
   "parser": "babel-eslint",
-  "extends": "react",
-  "env": {
-    "browser": true,
-    "node": true,
-    "jest": true
-  },
-  "settings": {
-    "react": {
-      "version": "detect"
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "extends": "react",
+    "env": {
+      "es6": true,
+      "browser": true,
+      "node": true,
+      "jest": true
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    },
+    "rules": {
+      "indent": ["error", 2],
+      "space-before-function-paren": ["error", "never"]
     }
-  },
-  "rules": {
-    "indent": ["error", 2],
-    "space-before-function-paren": ["error", "never"]
   }
 }

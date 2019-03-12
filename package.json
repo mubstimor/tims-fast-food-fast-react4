@@ -25,12 +25,16 @@
   },
   "homepage": "https://github.com/mubstimor/tims-fast-food-fast-react4#readme",
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "axios": "^0.18.0",
     "babel-jest": "^24.3.1",
     "dotenv-webpack": "^1.7.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.10.0",
     "express": "^4.16.4",
     "jest": "^24.3.1",
+    "jwt-decode": "^2.2.0",
+    "moxios": "^0.4.0",
     "node-sass": "^4.11.0",
     "path": "^0.12.7",
     "react": "^16.8.4",
@@ -39,8 +43,10 @@
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.8",
+    "redux-mock-store": "^1.5.3",
     "redux-thunk": "^2.3.0",
-    "sass-loader": "^7.1.0"
+    "sass-loader": "^7.1.0",
+    "sinon": "^7.2.7"
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",

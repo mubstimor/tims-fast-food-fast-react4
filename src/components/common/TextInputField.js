@@ -7,7 +7,8 @@ const TextInputField = ({
   type,
   placeholder,
   classname,
-  icon
+  icon,
+  changed,
 }) => {
   return (
     <div className="form-group">
@@ -22,6 +23,7 @@ const TextInputField = ({
           placeholder={placeholder}
           className={classname}
           icon={icon}
+          onChange={changed}
         />
       </div>
     </div>
@@ -34,12 +36,13 @@ TextInputField.propTypes = {
   type: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   icon: PropTypes.string,
-  classname: PropTypes.string.isRequired
+  classname: PropTypes.string.isRequired,
+  changed: PropTypes.func,
 };
 TextInputField.defaultProps = {
   label: '',
   placeholder: '',
-  icon: ''
+  icon: '',
 };
 
 export default TextInputField;
