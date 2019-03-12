@@ -6,12 +6,9 @@ module.exports = {
   entry: './src/index.js',
   devtool: 'inline-source-map',
   output: {
-    path: __dirname + '/build',
+    path: path.resolve(__dirname, 'build'),
     publicPath: '/',
     filename: 'bundle.js',
-  },
-  devServer: {
-    contentBase: './build',
   },
   module: {
     rules: [
@@ -32,7 +29,26 @@ module.exports = {
         test: /\.css$/,
         loaders: ['style-loader', 'css-loader'],
       },
+      {
+        enforce: 'pre',
+        test: /\.(js|jsx|mjs)$/,
+        use: [
+          {
+            loader: require.resolve('eslint-loader'),
+            options: {
+              eslintPath: require.resolve('eslint'),
+              emitWarning: true,
+            },
+          },
+        ],
+      },
     ],
+  },
+  devServer: {
+    historyApiFallback: {
+      disableDotRule: true,
+    },
+    port: 8080,
   },
   plugins: [
     new HtmlWebpackPlugin({

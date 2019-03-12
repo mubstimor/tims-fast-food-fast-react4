@@ -11,11 +11,10 @@ describe('Login', () => {
     type: 'text',
     placeholder: 'Email',
     classname: 'form-control form-control-lg',
-    icon: 'fas fa-envelope',
+    icon: 'fas fa-envelope'
   };
 
   it('Should render a text input field', () => {
-    console.log(props);
     wrapper = shallow(<TextInputField {...props} />);
     expect(wrapper).toMatchSnapshot();
   });
