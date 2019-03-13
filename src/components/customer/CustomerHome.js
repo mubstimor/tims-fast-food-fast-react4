@@ -1,17 +1,55 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { fetchMenu } from '../../actions/customer/customerActions';
 import '../../assets/css/simple-sidebar.css';
 import '../../assets/css/style.css';
 import Sidebar from './Sidebar';
 import TopNav from './TopNav';
+import MenuItem from './MenuItem';
+import SelectedItem from './SelectedItem';
 
-class CustomerHome extends Component {
+export class CustomerHome extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedItem: {},
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.fetchMenu();
+  }
+
+  handleClick = e => {
+    e.preventDefault();
+    const { menu } = this.props;
+    const menuItem = menu.find(food => food.id === parseInt(e.target.id));
+    this.setState({ selectedItem: menuItem });
+  };
+
   render() {
+    const { error, loading, menu } = this.props;
+
+    if (error) {
+      return (
+        <div className="alert alert-warning" role="alert">
+          {error.message}
+        </div>
+      );
+    }
+
+    if (loading) {
+      return (
+        <div className="alert alert-primary" role="alert">
+          Loading ...
+        </div>
+      );
+    }
     return (
       <div className="d-flex" id="wrapper">
-        {/* Sidebar */}
         <Sidebar />
-        {/* /#sidebar-wrapper */}
-        {/* Page Content */}
         <div id="page-content-wrapper">
           <TopNav />
           <div className="container-fluid">
@@ -24,9 +62,7 @@ class CustomerHome extends Component {
                   className="alert alert-info"
                   id="alert-box"
                   style={{ display: 'none' }}
-                >
-                  {/* populate this dynamically */}
-                </div>
+                />
               </div>
               <div className="form_content" id="menu_div">
                 <form method="post">
@@ -34,26 +70,15 @@ class CustomerHome extends Component {
                     <div className="item header">
                       <h2>Available Items</h2>
                     </div>
+
                     <div className="fooditems" id="fooditems">
-                      <div className="fooditems" id="fooditems">
-                        <div className="food_item">
-                          <div className="food_description">
-                            <div className="food_item_label">
-                              <h3>
-                                <span>Chips + Chicken</span>
-                              </h3>
-                            </div>
-                            <div className="price-right">
-                              <span>
-                                <a href="#">15000Ush</a>
-                                <div className="circle plus">
-                                  <a href="#" />
-                                </div>
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      {menu.map((item, index) => (
+                        <MenuItem
+                          item={item}
+                          handleClick={this.handleClick}
+                          key={index}
+                        />
+                      ))}
                     </div>
                   </div>
                 </form>
@@ -64,7 +89,7 @@ class CustomerHome extends Component {
               <form method="post" name="order_form">
                 <div id="default_label">Nothing ordered yet</div>
                 <div className="order_item" id="added_item">
-                  {/* populate with selected items */}
+                  <SelectedItem item={this.state.selectedItem} />
                 </div>
                 <div className="spacer" />
                 <div className="form-btn center">
@@ -80,10 +105,22 @@ class CustomerHome extends Component {
             </div>
           </div>
         </div>
-        {/* /#page-content-wrapper */}
       </div>
     );
   }
 }
 
-export default CustomerHome;
+CustomerHome.propTypes = {
+  fetchMenu: PropTypes.func,
+};
+
+const mapStateToProps = state => ({
+  menu: state.customerReducer.menu,
+  loading: state.customerReducer.loading,
+  error: state.customerReducer.error,
+});
+
+export default connect(
+  mapStateToProps,
+  { fetchMenu }
+)(CustomerHome);

@@ -1,17 +1,27 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchOrders } from '../../actions/customer/orderActions';
 import '../../assets/css/simple-sidebar.css';
 import '../../assets/css/style.css';
 import Sidebar from './Sidebar';
 import TopNav from './TopNav';
+import OrderItem from './OrderItem';
 
-class OrderHistory extends Component {
+export class OrderHistory extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentDidMount() {
+    this.props.fetchOrders();
+  }
   render() {
+    const { error, loading, orders } = this.props;
     return (
       <div className="d-flex" id="wrapper">
-        {/* Sidebar */}
         <Sidebar />
-        {/* /#sidebar-wrapper */}
-        {/* Page Content */}
         <div id="page-content-wrapper">
           <TopNav />
           <div className="container-fluid">
@@ -30,66 +40,31 @@ class OrderHistory extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="odd">
-                      <td>Chips + Chicken</td>
-                      <td>14/09/2018</td>
-                      <td>Pending</td>
-                      <td>
-                        <a href="order_details.html">
-                          <button
-                            type="button"
-                            className="button button_round_corner button_green"
-                          >
-                            {' '}
-                            View{' '}
-                          </button>
-                        </a>
-                        <a href="edit_order.html">
-                          <button
-                            type="button"
-                            className="button button_round_corner button_blue"
-                          >
-                            {' '}
-                            Edit{' '}
-                          </button>
-                        </a>
-                        <a href="order_details.html">
-                          <button
-                            type="button"
-                            className="button button_round_corner button_red"
-                          >
-                            {' '}
-                            Cancel{' '}
-                          </button>
-                        </a>
-                      </td>
-                    </tr>
-                    <tr className="even">
-                      <td>Breakfast</td>
-                      <td>07/09/2018</td>
-                      <td>Completed</td>
-                      <td>
-                        <a href="order_details.html">
-                          <button
-                            type="button"
-                            className="button button_round_corner button_green"
-                          >
-                            {' '}
-                            View{' '}
-                          </button>
-                        </a>{' '}
-                      </td>
-                    </tr>
+                    {orders.map((item, index) => (
+                      <OrderItem item={item} key={index} />
+                    ))}
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
         </div>
-        {/* /#page-content-wrapper */}
       </div>
     );
   }
 }
 
-export default OrderHistory;
+OrderHistory.propTypes = {
+  fetchOrders: PropTypes.func,
+};
+
+const mapStateToProps = state => ({
+  orders: state.orderReducer.orders,
+  loading: state.orderReducer.loading,
+  error: state.orderReducer.error,
+});
+
+export default connect(
+  mapStateToProps,
+  { fetchOrders }
+)(OrderHistory);
