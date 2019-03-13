@@ -4,16 +4,22 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Login from './components/auth/Login';
 import CustomerHome from './components/customer/CustomerHome';
+import OrderHistory from './components/customer/OrderHistory';
 
 class App extends Component {
   render() {
     return (
       <Router>
         <div className="App">
-          <Navbar />
+          {/* <Navbar /> */}
           <div className="container">
             <Route exact path="/" component={Login} />
-            <Route path="/user/customer" component={CustomerHome} />
+            <Route exact path="/user/customer" component={CustomerHome} />
+            <Route
+              exact
+              path="/user/customer/history"
+              component={OrderHistory}
+            />
           </div>
         </div>
       </Router>
