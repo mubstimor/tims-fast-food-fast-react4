@@ -30,6 +30,18 @@ module.exports = {
         loaders: ['style-loader', 'css-loader'],
       },
       {
+        test: /\.(png|jp(e*)g|svg|jpg)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8000, // Convert images < 8kb to base64 strings
+              name: 'images/[hash]-[name].[ext]',
+            },
+          },
+        ],
+      },
+      {
         enforce: 'pre',
         test: /\.(js|jsx|mjs)$/,
         use: [
@@ -48,7 +60,7 @@ module.exports = {
     historyApiFallback: {
       disableDotRule: true,
     },
-    port: 8082,
+    port: 8083,
   },
   plugins: [
     new HtmlWebpackPlugin({

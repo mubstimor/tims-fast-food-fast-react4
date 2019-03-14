@@ -15,3 +15,18 @@ Fast-Food-Fast is a food delivery service app for a restaurant.
 ## Github backend repo
 
 [https://github.com/mubstimor/fast-food-fast](https://github.com/mubstimor/fast-food-fast)
+
+## Default Logins
+
+```
+Email: customer@demo.com
+Password: customer
+```
+
+## Endpoints Implemented
+
+| Method | Route                | Description        |
+| ------ | -------------------- | ------------------ |
+| POST   | /api/v1/auth/login   | Login User         |
+| GET    | /api/v1/menu         | Get all food items |
+| GET    | /api/v1/users/orders | Get user's orders  |
